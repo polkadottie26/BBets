@@ -1,0 +1,148 @@
+---
+title: "BBets Project"
+author: "Dottie"
+date: "1/31/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Introduction
+
+The question is how much money is won/lost on a bet that at least two people have the same birthday in a class of 35. Instructor wagers 2:1.
+
+Instructor has done this 15 times. 
+
+1. What is his expected win/loss amount? 
+2. How much would the instructor have to wager to make the bet fair? 
+3. How many students would have to be in the class for a 2:1 bet to be fair?
+
+# Question 1
+
+```{r}
+daysOne = 1:365
+
+studentsOne = 35
+classesOne = 15
+runsOne = studentsOne*classesOne
+payoutOne = 2
+
+saveArrayOne = vector('numeric')
+for (k in 1:1000) {
+  
+
+  bankOne = 0
+  for (i in 1:runsOne) {
+
+    sampleClassOne = sample(daysOne, studentsOne, replace = TRUE)
+
+    repeats = length(unique(sampleClassOne))
+
+    if (repeats == studentsOne) bankOne = bankOne - payoutOne
+    else bankOne = bankOne + 1
+  }
+
+saveArrayOne[k] = bankOne
+}
+
+```
+
+Histogram of bank amounts.
+
+```{r}
+hist(saveArrayOne)
+```
+
+Professor made money every time because there are no negatives in the histogram.
+
+Answer to number 1: what is his expected win/loss amount? 
+
+```{r}
+print('average amt:')
+print(mean(saveArrayOne))
+```
+
+On average, when the professor does this process, he will make 231 dollars and 72 cents (or whichever amount it says because it changes every time I knit it).
+
+# Question 2
+
+```{r}
+daysTwo = 1:365
+
+studentsTwo = 35
+classesTwo = 15
+runsTwo = studentsTwo*classesTwo
+payoutTwo = 4.5
+
+saveArrayTwo = vector('numeric')
+for (k in 1:1000) {
+  
+
+  bankTwo = 0
+  for (i in 1:runsTwo) {
+
+    sampleClassTwo = sample(daysTwo, studentsTwo, replace = TRUE)
+
+    repeats = length(unique(sampleClassTwo))
+
+    if (repeats == studentsTwo) bankTwo = bankTwo - payoutTwo
+    else bankTwo = bankTwo + 1
+  }
+
+saveArrayTwo[k] = bankTwo
+}
+
+```
+
+Histogram of bank amounts.
+
+```{r}
+hist(saveArrayTwo)
+```
+
+Answer to number 2: How much would the instructor have to wager to make the bet fair? 
+
+The instructor would need to bet 4 dollars and 50 cents for the bet to be fair.
+
+# Question 3
+
+```{r}
+daysThree = 1:365
+
+studentsThree = 28
+classesThree = 15
+runsThree = studentsThree*classesThree
+payoutThree = 2
+
+saveArrayThree = vector('numeric')
+for (k in 1:1000) {
+  
+
+  bankThree = 0
+  for (i in 1:runsThree) {
+
+    sampleClassThree = sample(daysThree, studentsThree, replace = TRUE)
+
+    repeats = length(unique(sampleClassThree))
+
+    if (repeats == studentsThree) bankThree = bankThree - payoutThree
+    else bankThree = bankThree + 1
+  }
+
+saveArrayThree[k] = bankThree
+}
+
+```
+
+Histogram of bank amounts.
+
+```{r}
+hist(saveArrayThree)
+```
+
+Answer to number 3: How many students would have to be in the class for a 2:1 bet to be fair? 
+
+The class size must be around 28 students for it to be fair.
+
